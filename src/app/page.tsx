@@ -3,7 +3,6 @@
 import { AppBar, Container, IconButton, Stack, TextField, Toolbar, Typography } from "@mui/material";
 import { GitHub } from "@mui/icons-material"
 import { useState } from "react";
-import { MuiFileInput } from "mui-file-input";
 
 export default function Home() {
   const [text, setText] = useState('')

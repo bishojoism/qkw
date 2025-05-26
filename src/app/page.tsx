@@ -56,7 +56,7 @@ export default function Home() {
               </IconButton>
             }
           </Box>
-          <Box>
+          <Box display="flex" alignItems="center">
             <TextField
               label="乾坤文"
               value={text}

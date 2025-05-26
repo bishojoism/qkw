@@ -46,7 +46,10 @@ export default function Home() {
                   const body = new FormData()
                   body.append('reqtype', 'fileupload')
                   body.append('fileToUpload', file)
-                  setText(encode64to256((await (await fetch(`/api?url=${encodeURIComponent('https://catbox.moe/user/api.php')}`, { method: 'POST', body })).text()).substring(25)))
+                  const res = await fetch(`/api?url=${encodeURIComponent('https://catbox.moe/user/api.php')}`, { method: 'POST', body })
+                  const text = await res.text()
+                  if (!res.ok) throw text
+                  setText(encode64to256(text.substring(25)))
                 } catch (e) {
                   alert(e)
                 }

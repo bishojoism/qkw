@@ -70,7 +70,7 @@ export default function Home() {
       </Container>
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-        open={true}
+        open={loading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

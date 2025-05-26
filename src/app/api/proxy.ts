@@ -8,7 +8,7 @@ export default function proxy(req: Request) {
             method,
             headers,
             body,
-            // @ts-expect-error
+            // @ts-expect-error 只有在node.js环境下才有这个参数
             duplex: 'half'
         })
     } catch (e) {

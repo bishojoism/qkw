@@ -8,7 +8,7 @@ export default function proxy(req: Request) {
             method,
             headers,
             body,
-            // @ts-ignore
+            // @ts-expect-error
             duplex: 'half'
         })
     } catch (e) {

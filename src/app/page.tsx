@@ -24,7 +24,9 @@ export default function Home() {
   }, [url])
   const filename = useMemo(() => decode256to64(text), [text])
   const thisLink = useMemo(() => typeof location === 'undefined' ? '' : `${location.href}${filename}`, [filename])
-  const thatLink = useMemo(() => suffixes.some(value => filename.endsWith(value)) && `https://images.weserv.nl/?url=https://files.catbox.moe/${filename}`, [filename])
+  const thatLink = useMemo(() => suffixes.some(value => filename.endsWith(value)) && `https://files.catbox.moe/${filename}`, [filename])
+  const thatLink1 = useMemo(() => `https://wsrv.nl/?url=${thatLink}`, [thatLink])
+  const thatLink2 = useMemo(() => `https://cdn.cdnjson.com/pic.html?url=${thatLink}`, [thatLink])
   return (
     <>
       <AppBar>
@@ -52,9 +54,14 @@ export default function Home() {
             本站链接：<Link href={thisLink}>{thisLink}</Link>
           </Typography>
           {thatLink &&
-            <Typography>
-              别站链接（推荐）：<Link href={thatLink}>{thatLink}</Link>
-            </Typography>
+            <>
+              <Typography>
+                别站链接1（推荐）：<Link href={thatLink1}>{thatLink1}</Link>
+              </Typography>
+              <Typography>
+                别站链接2（推荐）：<Link href={thatLink2}>{thatLink2}</Link>
+              </Typography>
+            </>
           }
         </Stack>
       </Container>

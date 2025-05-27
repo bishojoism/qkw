@@ -23,7 +23,7 @@ export default function Home() {
     setText(encode64to256(url.substring(25)))
   }, [url])
   const filename = useMemo(() => decode256to64(text), [text])
-  const thisLink = useMemo(() => typeof location === undefined ? '' : `${location.href}${filename}`, [filename])
+  const thisLink = useMemo(() => typeof location === 'undefined' ? '' : `${location.href}${filename}`, [filename])
   const thatLink = useMemo(() => suffixes.some(value => filename.endsWith(value)) && `https://images.weserv.nl/?url=https://files.catbox.moe/${filename}`, [filename])
   return (
     <>

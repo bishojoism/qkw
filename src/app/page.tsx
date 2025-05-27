@@ -5,17 +5,6 @@ import { GitHub } from "@mui/icons-material"
 import { useEffect, useMemo, useState } from "react";
 import { decode256to64, encode64to256 } from "./base";
 
-const suffixes = [
-  '.jpg', '.jpeg', '.jfif',
-  '.png',
-  '.bmp',
-  '.gif',
-  '.tif', '.tiff',
-  '.webp',
-  '.pdf',
-  '.svg'
-]
-
 export default function Home() {
   const [url, setUrl] = useState('')
   const [text, setText] = useState('')

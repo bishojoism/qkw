@@ -23,10 +23,9 @@ export default function Home() {
     setText(encode64to256(url.substring(25)))
   }, [url])
   const filename = useMemo(() => decode256to64(text), [text])
-  const thisLink = useMemo(() => typeof location === 'undefined' ? '' : `${location.href}${filename}`, [filename])
-  const thatLink = useMemo(() => suffixes.some(value => filename.endsWith(value)) && `files.catbox.moe/${filename}`, [filename])
-  const thatLink1 = useMemo(() => `https://cdn.cdnjson.com/pic.html?url=https://${thatLink}`, [thatLink])
-  const thatLink2 = useMemo(() => `https://i0.wp.com/${thatLink}`, [thatLink])
+  const link1 = useMemo(() => `https://api.codetabs.com/v1/proxy?quest=https://files.catbox.moe/${filename}`, [filename])
+  const link2 = useMemo(() => `https://cdn.cdnjson.com/pic.html?url=https://files.catbox.moe/${filename}`, [filename])
+  const link3 = useMemo(() => `https://i0.wp.com/files.catbox.moe/${filename}`, [filename])
   return (
     <>
       <AppBar>
@@ -51,18 +50,14 @@ export default function Home() {
           <TextField label="Catbox链接" value={url} onChange={event => setUrl(event.target.value)} />
           <TextField label="乾坤文" value={text} onChange={event => setText(event.target.value)} />
           <Typography>
-            本站链接：<Link href={thisLink}>{thisLink}</Link>
+            链接1（所有格式都支持，但是慢）：<Link href={link1}>{link1}</Link>
           </Typography>
-          {thatLink &&
-            <>
-              <Typography>
-                别站链接1：<Link href={thatLink1}>{thatLink1}</Link>
-              </Typography>
-              <Typography>
-                别站链接2：<Link href={thatLink2}>{thatLink2}</Link>
-              </Typography>
-            </>
-          }
+          <Typography>
+            链接2（只支持图片格式，但是快）：<Link href={link2}>{link2}</Link>
+          </Typography>
+          <Typography>
+            链接3（只支持图片格式，但是快）：<Link href={link3}>{link3}</Link>
+          </Typography>
         </Stack>
       </Container>
     </>

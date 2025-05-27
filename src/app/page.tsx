@@ -29,7 +29,7 @@ export default function Home() {
           <Typography>
             如何使用乾坤文：将乾坤文复制粘贴至本页面下方的文本框内，点击“使用乾坤文”按钮。
           </Typography>
-          <ButtonGroup>
+          <ButtonGroup disabled={!text}>
             <Button onClick={() => {
               setText(encode64to256(text.substring(25)))
             }}>

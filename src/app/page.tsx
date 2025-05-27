@@ -24,10 +24,10 @@ export default function Home() {
       <Container sx={{ paddingY: 3 }}>
         <Stack spacing={2}>
           <Typography>
-            如何制作乾坤文：将文件上传至<Link href="https://catbox.moe">Catbox</Link>，将生成的链接复制粘贴至本页面下方的文本框内，点击“制作乾坤文”按钮。
+            如何制作乾坤文（需要魔法）：将文件上传至<Link href="https://catbox.moe">Catbox</Link>，将生成的链接复制粘贴至本页面下方的文本框内，点击“制作乾坤文”按钮。
           </Typography>
           <Typography>
-            如何使用乾坤文：将乾坤文复制粘贴至本页面下方的文本框内，点击“使用乾坤文”按钮。
+            如何使用乾坤文（无需魔法）：将乾坤文复制粘贴至本页面下方的文本框内，点击“使用乾坤文”按钮。
           </Typography>
           <ButtonGroup disabled={!text}>
             <Button onClick={() => {

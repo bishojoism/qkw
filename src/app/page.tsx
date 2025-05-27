@@ -1,7 +1,7 @@
 'use client'
 
-import { AppBar, Backdrop, Box, CircularProgress, Container, IconButton, Stack, TextField, Toolbar, Typography } from "@mui/material";
-import { Download, GitHub, Upload } from "@mui/icons-material"
+import { AppBar, Backdrop, Box, Button, ButtonGroup, CircularProgress, Container, IconButton, Stack, TextField, Toolbar, Typography } from "@mui/material";
+import { GitHub } from "@mui/icons-material"
 import { useState } from "react";
 import { MuiFileInput } from "mui-file-input";
 import { decode256to64, encode64to256 } from "./base";
@@ -11,6 +11,28 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [text, setText] = useState('')
+  const upload = async (proxy: boolean) => {
+    if (!file) return
+    setLoading(true)
+    try {
+      const body = new FormData()
+      body.append('reqtype', 'fileupload')
+      body.append('fileToUpload', file)
+      const url = 'https://catbox.moe/user/api.php'
+      const res = await fetch(proxy ? `/api?url=${encodeURIComponent(url)}` : url, { method: 'POST', body })
+      const text = await res.text()
+      if (!res.ok) throw text
+      setText(encode64to256(text.substring(25)))
+    } catch (e) {
+      alert(e)
+    }
+    setLoading(false)
+  }
+  const download = async (proxy: boolean) => {
+    const filename = decode256to64(text)
+    const url = `https://files.catbox.moe/${filename}`
+    saveAs(proxy ? `/api?url=${encodeURIComponent(url)}` : url, filename)
+  }
   return (
     <>
       <Backdrop
@@ -34,46 +56,35 @@ export default function Home() {
         <Stack spacing={2}>
           <Box display="flex" alignItems="center">
             <MuiFileInput
-              label="选择文件"
+              label="选择或拖拽文件"
               value={file}
               onChange={setFile}
-              sx={{ width: 'calc(100% - 40px)' }}
+              sx={{ width: 256 }}
             />
-            {file &&
-              <IconButton onClick={async () => {
-                setLoading(true)
-                try {
-                  const body = new FormData()
-                  body.append('reqtype', 'fileupload')
-                  body.append('fileToUpload', file)
-                  const res = await fetch(`/api?url=${encodeURIComponent('https://catbox.moe/user/api.php')}`, { method: 'POST', body })
-                  const text = await res.text()
-                  if (!res.ok) throw text
-                  setText(encode64to256(text.substring(25)))
-                } catch (e) {
-                  alert(e)
-                }
-                setLoading(false)
-              }}>
-                <Upload />
-              </IconButton>
-            }
+            <ButtonGroup disabled={!file}>
+              <Button onClick={() => upload(true)}>
+                免魔法上传
+              </Button>
+              <Button onClick={() => upload(false)}>
+                原接口上传
+              </Button>
+            </ButtonGroup>
           </Box>
           <Box display="flex" alignItems="center">
             <TextField
               label="乾坤文"
               value={text}
               onChange={event => setText(event.target.value)}
-              sx={{ width: 'calc(100% - 40px)' }}
+              sx={{ width: 256 }}
             />
-            {text &&
-              <IconButton onClick={() => {
-                const filename = decode256to64(text)
-                saveAs(`/api?url=${encodeURIComponent(`https://files.catbox.moe/${filename}`)}`, filename)
-              }}>
-                <Download />
-              </IconButton>
-            }
+            <ButtonGroup disabled={!text}>
+              <Button onClick={() => download(true)}>
+                免魔法下载
+              </Button>
+              <Button onClick={() => download(false)}>
+                原接口下载
+              </Button>
+            </ButtonGroup>
           </Box>
         </Stack>
       </Container>

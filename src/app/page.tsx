@@ -31,7 +31,7 @@ export default function Home() {
       <Container sx={{ paddingY: 3 }}>
         <Stack spacing={2}>
           <Typography>
-            如何使用乾坤文（无需魔法）：将乾坤文复制粘贴至“乾坤文”文本框内，普通下载链接将自动显示于“本站链接”后面，如果是主流图片格式（JPEG、PNG、BMP、GIF、TIFF、WebP、SVG），高速下载链接将自动显示于“别站链接（推荐）”后面。
+            如何使用乾坤文（无需魔法）：将乾坤文复制粘贴至“乾坤文”文本框内，链接将自动显示于“乾坤文”文本框下方。
           </Typography>
           <Typography>
             如何制作乾坤文（需要魔法）：将文件上传至<Link href="https://catbox.moe">Catbox</Link>，将生成的链接复制粘贴至“Catbox链接”文本框内，乾坤文将自动显示于“乾坤文”文本框内。

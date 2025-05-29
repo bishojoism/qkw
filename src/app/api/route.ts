@@ -9,8 +9,13 @@ async function proxy(req: Request) {
             // @ts-expect-error 只有在node.js环境下才有这个参数
             duplex: 'half'
         })
-        res.headers.append('Access-Control-Allow-Origin', '*')
-        return res
+        const newHeaders = res.headers
+        newHeaders.set('Access-Control-Allow-Origin', '*')
+        return new Response(res.body, {
+            status: res.status,
+            statusText: res.statusText,
+            headers: newHeaders
+        })
     } catch (e) {
         return new Response(String(e))
     }

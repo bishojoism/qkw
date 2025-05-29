@@ -3,7 +3,7 @@ async function proxy(req: Request) {
         const { url, method, headers, body } = req
         headers.delete('host')
         headers.append('Access-Control-Allow-Origin', '*')
-        return fetch(url, {
+        return fetch(new URL(url).searchParams.get('url')!, {
             method,
             headers,
             body,

@@ -2,14 +2,15 @@ async function proxy(req: Request) {
     try {
         const { url, method, headers, body } = req
         headers.delete('host')
-        headers.append('Access-Control-Allow-Origin', '*')
-        return fetch(new URL(url).searchParams.get('url')!, {
+        const res = await fetch(new URL(url).searchParams.get('url')!, {
             method,
             headers,
             body,
             // @ts-expect-error 只有在node.js环境下才有这个参数
             duplex: 'half'
         })
+        res.headers.append('Access-Control-Allow-Origin', '*')
+        return res
     } catch (e) {
         return new Response(String(e))
     }

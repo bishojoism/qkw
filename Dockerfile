@@ -5,7 +5,7 @@ FROM oven/bun:1.1.13 AS builder
 WORKDIR /app
 
 # 3. 复制依赖文件并安装依赖
-COPY bun.lockb package.json tsconfig.json next.config.js ./
+COPY bun.lock package.json tsconfig.json next.config.js ./
 COPY . .
 
 # 4. 安装依赖并构建

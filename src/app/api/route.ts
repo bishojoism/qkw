@@ -1,7 +1,10 @@
 async function proxy(req: Request) {
     try {
-        const targetUrl = new URL(req.url).searchParams.get('url');
+        const { searchParams } = new URL(req.url)
+        const targetUrl = searchParams.get('url');
         if (!targetUrl) return new Response("Missing 'url' parameter", { status: 400 });
+        const port = searchParams.get('port')
+        if (!port) return new Response("Missing 'port' parameter", { status: 400 })
 
         const forwardedHeaders = new Headers(req.headers);
         forwardedHeaders.delete('host');
@@ -15,7 +18,7 @@ async function proxy(req: Request) {
         });
 
         const newHeaders = new Headers(res.headers);
-        newHeaders.set('Access-Control-Allow-Origin', 'https://localhost:4173');
+        newHeaders.set('Access-Control-Allow-Origin', `http://localhost:${port}`);
 
         return new Response(res.body, {
             status: res.status,

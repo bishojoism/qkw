@@ -15,7 +15,7 @@ async function proxy(req: Request) {
         });
 
         const newHeaders = new Headers(res.headers);
-        newHeaders.set('Access-Control-Allow-Origin', 'https://localhost:5713');
+        newHeaders.set('Access-Control-Allow-Origin', 'https://localhost:5173');
 
         return new Response(res.body, {
             status: res.status,
